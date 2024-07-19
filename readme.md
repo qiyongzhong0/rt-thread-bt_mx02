@@ -36,10 +36,24 @@ bt_mx02 package 遵循 LGPLv2.1 许可，详见 `LICENSE` 文件。
 #### 配置参数项定义如下：
 ```
 typedef struct{
-    const char *serial;     //串口设备名
-    int sleep;              //休眠控制引脚
-    int fifo_size;          //FIFO尺寸
-    bt_power_t power;       //蓝牙功率
+    char *srv;          //主服务通道，16位格式："FFF1"，或128位格式："01020304050607080910111213141516"
+    char *read;         //读服务通道
+    char *write;        //写服务通道
+}bt_uuid_t;
+
+typedef struct{
+    char *self;         //本机MAC地址，格式："123456789ABC"
+    char *slaves[4];    //从机MAC地址列表，示例：{"A1A2A3A4A5A6","B1B2B3B4B5B6", 0, 0};
+}bt_mac_t;
+
+typedef struct{
+    const char *serial; //串口设备名
+    int sleep;          //休眠控制引脚
+    int fifo_size;      //FIFO尺寸
+    int aintvl;         //广播间隔，20~10000 ms
+    bt_power_t power;   //发射功率
+    bt_uuid_t uuid;     //服务通道表
+    bt_mac_t mac;       //MAC地址表
 }bt_cfg_t;
 ```
 
