@@ -797,8 +797,6 @@ void bt_destory(bt_dev_t dev)//销毁蓝牙设备
     bt_close(dev);
     bt_pins_deinit(dev);
 
-    rt_device_unregister((void *)dev);
-
     if (dev->rx_rb != RT_NULL)
     {
         rt_ringbuffer_destroy(dev->rx_rb);
